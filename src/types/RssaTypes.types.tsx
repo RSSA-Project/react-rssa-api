@@ -188,5 +188,6 @@ export type MovieRating = {
 export type PrefVizRequestObject = {
 	user_id: string
 	user_condition: string
+	is_baseline: boolean
 	ratings: MovieRating[]
 }
