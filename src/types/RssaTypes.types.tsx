@@ -74,6 +74,9 @@ export const emptyParticipant: Participant = {
 }
 
 export function isEmptyParticipant(participant: Participant): boolean {
+	if (participant === undefined || participant === null) {
+		return true;
+	}
 	return participant.id === emptyParticipant.id;
 }
 
@@ -89,6 +92,9 @@ export const emptyStep: StudyStep = {
 }
 
 export function isEmptyStep(step: StudyStep): boolean {
+	if (step === undefined || step === null) {
+		return true;
+	}
 	return step.id === emptyStep.id;
 }
 
