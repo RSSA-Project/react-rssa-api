@@ -1,16 +1,8 @@
-import React, { ReactNode, useCallback, useContext, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Participant, StudyStep } from '../types/RssaTypes.types';
+import React, { ReactNode, useContext, useMemo, useState } from 'react';
 import RssaClient from './RssaClient';
-
 
 interface StudyContextType {
 	studyApi: RssaClient;
-	participant: Participant | undefined;
-	setParticipant: React.Dispatch<React.SetStateAction<Participant | undefined>>;
-	studyStep: StudyStep | undefined;
-	setStudyStep: React.Dispatch<React.SetStateAction<StudyStep | undefined>>;
-	updateStudyProgress: (step: StudyStep, currentParticipant: Participant, referrer: string) => void;
 }
 
 interface StudyProviderProps {
@@ -29,44 +21,10 @@ const StudyProvider: React.FC<StudyProviderProps> = ({
 }) => {
 
 	const { api_url_base, study_id } = config;
+
 	const [studyApi] = useState<RssaClient>(new RssaClient(api_url_base, study_id));
-	const [participant, setParticipant] = useState<Participant | undefined>(undefined);
-	const [studyStep, setStudyStep] = useState<StudyStep | undefined>(undefined);
-	const navigate = useNavigate();
 
-	const updateStudyProgress = useCallback(
-		async (step: StudyStep, currentParticipant: Participant, referrer: string) => {
-			const updatedParticipant = { ...currentParticipant, current_step: step.id };
-			try {
-				await studyApi.put('participant/', updatedParticipant);
-				localStorage.setItem('participant', JSON.stringify(updatedParticipant));
-				localStorage.setItem('studyStep', JSON.stringify(step));
-				localStorage.setItem('lastUrl', referrer);
-				setParticipant(updatedParticipant);
-				setStudyStep(step);
-				if (referrer && referrer !== window.location.pathname) {
-					navigate(referrer);
-				}
-			} catch (error) {
-				console.error("Error updating participant", error);
-				// Handle error appropriately
-			}
-		},
-		[studyApi, navigate, setParticipant, setStudyStep]
-	);
-
-
-	const value = useMemo(
-		() => ({
-			studyApi,
-			participant,
-			setParticipant,
-			studyStep,
-			setStudyStep,
-			updateStudyProgress,
-		}),
-		[studyApi, participant, setParticipant, studyStep, setStudyStep, updateStudyProgress]
-	);
+	const value = useMemo(() => ({ studyApi }), [studyApi]);
 
 	return (
 		<StudyContext.Provider value={value}>
