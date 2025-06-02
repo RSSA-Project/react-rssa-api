@@ -1,6 +1,7 @@
 class RssaClient {
 	private api_url_base: string;
 	private study_id: string;
+	private participant_id: string | null = null;
 
 	constructor(api_url_base: string, study_id: string) {
 		this.api_url_base = api_url_base;
@@ -14,13 +15,22 @@ class RssaClient {
 		'Access-Control-Allow-Methods': 'OPTIONS,PUT,POST,GET'
 	};
 
+	/**
+	 * Sets the participant ID for the client.
+	 * @param participant_id - The ID of the participant.
+	 */
+	setParticipantId(participant_id: string): void {
+		this.participant_id = participant_id;
+	}
+
 	async get<T>(path: string): Promise<T> {
 		const url = `${this.api_url_base}${path}`;
 		const response = await fetch(url, {
 			method: 'GET',
 			headers: {
 				...this.header,
-				'X-Study-Id': `${this.study_id}`
+				'X-Study-Id': `${this.study_id}`,
+				'X-Participant-Id': this.participant_id ? `${this.participant_id}` : ''
 			}
 		});
 		if (!response.ok) {
@@ -35,7 +45,8 @@ class RssaClient {
 			method: 'POST',
 			headers: {
 				...this.header,
-				'X-Study-Id': `${this.study_id}`
+				'X-Study-Id': `${this.study_id}`,
+				'X-Participant-Id': this.participant_id ? `${this.participant_id}` : ''
 			},
 			body: JSON.stringify(data)
 		});
@@ -52,7 +63,8 @@ class RssaClient {
 			method: 'PUT',
 			headers: {
 				...this.header,
-				'X-Study-Id': `${this.study_id}`
+				'X-Study-Id': `${this.study_id}`,
+				'X-Participant-Id': this.participant_id ? `${this.participant_id}` : ''
 			},
 			body: JSON.stringify(data)
 		});
