@@ -23,6 +23,14 @@ class RssaClient {
 		this.participant_id = participant_id;
 	}
 
+	/**
+	 * Gets the current participant ID.
+	 * @returns The participant ID or null if not set.
+	 */
+	getParticipantId(): string | null {
+		return this.participant_id;
+	}
+
 	async get<T>(path: string): Promise<T> {
 		const url = `${this.api_url_base}${path}`;
 		const response = await fetch(url, {
