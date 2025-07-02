@@ -3,7 +3,7 @@ export interface RssaClientInterface {
 	getParticipantId(): string | null;
 	get<T>(path: string): Promise<T>;
 	post<T1, T2>(path: string, data: T1): Promise<T2>;
-	put<T>(path: string, data: T): void;
+	put<T>(path: string, data: T): Promise<void>;
 }
 
 class RssaClient implements RssaClientInterface {
