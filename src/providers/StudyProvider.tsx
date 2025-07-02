@@ -35,7 +35,6 @@ const StudyProvider: React.FC<StudyProviderProps> = ({
 
 const useStudy = () => {
 	const context = useContext(StudyContext);
-	console.log("useStudy", context);
 	if (!context) {
 		throw new Error('useStudy must be used within a StudyProvider');
 	}

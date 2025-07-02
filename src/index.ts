@@ -1,12 +1,12 @@
+export { RssaClientInterface } from './providers/RssaClient';
 export { StudyProvider, useStudy } from './providers/StudyProvider';
 export {
 	ConstructItem,
-	CurrentStep, Demographic, Feedback,
+	CurrentStep, Demographic, emptyParticipant, emptyStep, Feedback,
 	GroupedTextResponse, NewParticipant, PageContent, Participant,
 	PrefVizRequestObject, ScaleLevel, StudyStep, SurveyConstruct,
 	SurveyItemResponse, SurveyPage,
 	SurveyResponse,
-	TextConstruct, TextItemResponse,
-	emptyParticipant, emptyStep, isEmptyParticipant, isEmptyStep
+	TextConstruct, TextItemResponse
 } from './types/RssaTypes.types';
 
