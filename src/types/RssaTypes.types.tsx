@@ -166,7 +166,6 @@ export type Demographic = {
 	state_region: string
 }
 
-
 export type Feedback = {
 	participant_id: string,
 	feedback: string

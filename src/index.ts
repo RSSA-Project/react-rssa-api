@@ -9,4 +9,4 @@ export {
 	SurveyResponse,
 	TextConstruct, TextItemResponse
 } from './types/RssaTypes.types';
-
+export {FreeFormTextResponse, FreeFormTextResponseRequest} from './types/ParticpantResponses.types';
