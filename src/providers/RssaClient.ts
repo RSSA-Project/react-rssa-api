@@ -27,7 +27,7 @@ class RssaClient implements RssaClientInterface {
 	 * Sets the participant ID for the client.
 	 * @param participant_id - The ID of the participant.
 	 */
-	setParticipantId(participant_id: string): void {
+	setParticipantId(participant_id: string | null): void {
 		this.participant_id = participant_id;
 	}
 
