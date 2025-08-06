@@ -4,10 +4,11 @@ export { FreeFormTextResponse, FreeFormTextResponseRequest } from './types/Parti
 export { Page, StudyStep as StudyStepType } from './types/rssa-types/studycomponents';
 export {
 	ConstructItem,
-	CurrentStep, Demographic, emptyParticipant, emptyStep, Feedback,
+	CurrentStep, Demographic, Feedback,
 	GroupedTextResponse, NewParticipant, PageContent, Participant,
 	PrefVizRequestObject, ScaleLevel, StudyStep, SurveyConstruct,
 	SurveyItemResponse, SurveyPage,
 	SurveyResponse,
 	TextConstruct, TextItemResponse
 } from './types/RssaTypes.types';
+

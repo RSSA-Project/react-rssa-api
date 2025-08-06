@@ -21,6 +21,8 @@ export interface StudyStep extends OrderedComponent {
 	study_id: string;
 	name: string;
 	description: string;
+	title?: string;
+	instructions?: string;
 	pages: Page[];
 	date_created: string;
 }
@@ -56,48 +58,6 @@ export type Participant = {
 	current_page: string | null;
 	date_created: string;
 }
-
-export const emptyParticipantType: ParticipantType = {
-	id: '',
-	type: ''
-}
-
-export const emptyParticipant: Participant = {
-	id: '',
-	study_id: '',
-	participant_type: '',
-	external_id: '',
-	condition_id: '',
-	current_step: '',
-	current_page: '',
-	date_created: ''
-}
-
-export function isEmptyParticipant(participant: Participant): boolean {
-	if (participant === undefined || participant === null) {
-		return true;
-	}
-	return participant.id === emptyParticipant.id;
-}
-
-
-export const emptyStep: StudyStep = {
-	id: '',
-	study_id: '',
-	name: '',
-	description: '',
-	pages: [],
-	date_created: '',
-	order_position: 0
-}
-
-export function isEmptyStep(step: StudyStep): boolean {
-	if (step === undefined || step === null) {
-		return true;
-	}
-	return step.id === emptyStep.id;
-}
-
 
 export type CurrentStep = {
 	current_step_id: string;
