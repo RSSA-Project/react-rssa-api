@@ -21,6 +21,7 @@ export interface StudyStep extends OrderedComponent {
 	study_id: string;
 	name: string;
 	description: string;
+	step_type?: string;
 	title?: string;
 	instructions?: string;
 	pages: Page[];
