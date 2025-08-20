@@ -1,14 +1,14 @@
 export { RssaClientInterface } from './providers/RssaClient';
 export { StudyProvider, useStudy } from './providers/StudyProvider';
 export { FreeFormTextResponse, FreeFormTextResponseRequest } from './types/ParticpantResponses.types';
-export { Page, StudyStep as StudyStepType } from './types/rssa-types/studycomponents';
+export { Page, StudyStep } from './types/rssa-types/studycomponents';
 export {
-	ConstructItem,
-	CurrentStep, Demographic, Feedback,
+	Demographic, Feedback,
 	GroupedTextResponse, NewParticipant, PageContent, Participant,
-	PrefVizRequestObject, ScaleLevel, StudyStep, SurveyConstruct,
-	SurveyItemResponse, SurveyPage,
+	PrefVizRequestObject,
+	SurveyItemResponse,
 	SurveyResponse,
 	TextConstruct, TextItemResponse
 } from './types/RssaTypes.types';
+export { ConstructItem, ScaleLevel, SurveyConstruct, SurveyPage } from './types/SurveyTypes.types';
 

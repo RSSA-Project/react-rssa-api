@@ -80,12 +80,13 @@ export type ConstructItem = {
 }
 
 export type SurveyPage = {
-	step_id: string,
-	page_id: string,
-	order_position: number,
-	construct_id: string,
-	construct_items: ConstructItem[],
-	construct_scale: ScaleLevel[]
+	step_id: string;
+	page_id: string;
+	title?: string;
+	order_position: number;
+	construct_id: string;
+	construct_items: ConstructItem[];
+	
 }
 
 export type SurveyItemResponse = {
