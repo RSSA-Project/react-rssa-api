@@ -7,8 +7,10 @@ export type ConstructItem = {
 }
 
 export type SurveyItemResponse = {
+	construct_id: string;
 	item_id: string;
-	response: string;
+	scale_id: string;
+	scale_level_id: string;
 }
 
 export type SurveyResponse = {
@@ -23,6 +25,7 @@ export type SurveyConstruct = {
 }
 
 export type ScaleLevel = {
+	id: string;
 	order_position: number;
 	value: number;
 	label: string;
