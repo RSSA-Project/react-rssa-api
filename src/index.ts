@@ -3,6 +3,7 @@ export { StudyProvider, useStudy } from './providers/StudyProvider';
 export { FreeFormTextResponse, FreeFormTextResponseRequest } from './types/ParticpantResponses.types';
 export { Page, StudyStep } from './types/rssa-types/studycomponents';
 export {
+	CurrentStep,
 	Demographic, Feedback,
 	GroupedTextResponse, NewParticipant, PageContent, Participant,
 	PrefVizRequestObject,
