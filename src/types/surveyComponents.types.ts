@@ -33,11 +33,13 @@ export type PageContent = {
 	id: string;
 	order_position: number;
 
+	construct_id: string;
 	items: ConstructItem[];
 
 	name: string;
 	desc: string;
 
+	scale_id: string;
 	scale_name: string;
 	scale_levels: ScaleLevel[];
 
@@ -58,9 +60,11 @@ export type SurveyPage = {
 	order_position: number;
 
 	name: string;
+	description: string | null;
+
 	title: string | null;
 	instructions: string | null;
-	description: string | null;
+	
 	page_contents: PageContent[];
 
 	enabled: boolean;
