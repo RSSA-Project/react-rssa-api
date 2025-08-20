@@ -43,6 +43,9 @@ class RssaClient implements RssaClientInterface {
 	 * Gets the study ID
 	 * @returns The study ID that this client was configured with.
 	 */
+	getStudyId(): string | null {
+		return this.study_id;
+	}
 
 	async get<T>(path: string): Promise<T> {
 		const url = `${this.api_url_base}${path}`;
