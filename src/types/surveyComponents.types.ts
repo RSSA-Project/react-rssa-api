@@ -29,7 +29,7 @@ export type ScaleLevel = {
 	enabled: boolean;
 }
 
-type PageContent = {
+export type PageContent = {
 	id: string;
 	order_position: number;
 
@@ -45,6 +45,12 @@ type PageContent = {
 }
 
 export type SurveyPage = {
+	/**
+	 * The recommended type to use for SurveyPage instances which combined the 
+	 * the PageContent information, allowing for multiple constructs in a
+	 * single survey page. The Page interface from types/studyComponents may
+	 * also be used in many cases.
+	 */
 	id: string;
 	study_id: string;
 	step_id: string;
