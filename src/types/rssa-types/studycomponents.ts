@@ -7,6 +7,7 @@ export interface StudyStep extends OrderedComponent {
 	title?: string;
 	instructions?: string;
 	pages: Page[];
+	step_type?: string;
 	date_created: string;
 }
 
@@ -16,6 +17,7 @@ export interface Page extends OrderedComponent {
 	name: string;
 	description: string;
 	title?: string;
+	page_type?: string;
 	instructions?: string;
 	date_created: string;
 }
