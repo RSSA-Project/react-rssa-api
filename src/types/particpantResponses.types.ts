@@ -18,6 +18,7 @@ export type SurveyItemResponse = {
 
 export type SurveyResponse = {
 	participant_id: string;
+	step_id: string;
 	page_id: string;
 	responses: SurveyItemResponse[];
 }
