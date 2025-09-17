@@ -1,4 +1,5 @@
-import React, { ReactNode, useContext, useMemo, useState } from 'react';
+import React, { ReactNode, useContext, useEffect, useMemo } from 'react';
+import { useParticipant } from './ParticipantProvider';
 import RssaClient from './RssaClient';
 
 interface StudyContextType {
@@ -7,38 +8,33 @@ interface StudyContextType {
 
 interface StudyProviderProps {
 	config: {
-		api_url_base: string;
-		study_id: string;
+		apiUrlBase: string;
+		studyId: string;
 	};
 	children: ReactNode;
 }
 
-const StudyContext = React.createContext<StudyContextType | null>(null);
+const StudyContext = React.createContext<StudyContextType | undefined>(undefined);
 
-const StudyProvider: React.FC<StudyProviderProps> = ({
-	config,
-	children
-}) => {
+export const StudyProvider: React.FC<StudyProviderProps> = ({ config, children }) => {
+	const { apiUrlBase, studyId } = config;
+	const { jwt } = useParticipant();
 
-	const { api_url_base, study_id } = config;
+	const studyApi = useMemo(() => new RssaClient(apiUrlBase, studyId), [apiUrlBase, studyId]);
 
-	const [studyApi] = useState<RssaClient>(new RssaClient(api_url_base, study_id));
+	useEffect(() => {
+		studyApi.setJwt(jwt);
+	}, [jwt, studyApi]);
 
 	const value = useMemo(() => ({ studyApi }), [studyApi]);
 
-	return (
-		<StudyContext.Provider value={value}>
-			{children}
-		</StudyContext.Provider>
-	);
-}
+	return <StudyContext.Provider value={value}>{children}</StudyContext.Provider>;
+};
 
-const useStudy = () => {
+export const useStudy = () => {
 	const context = useContext(StudyContext);
 	if (!context) {
 		throw new Error('useStudy must be used within a StudyProvider');
 	}
 	return context;
-}
-
-export { StudyProvider, useStudy };
+};

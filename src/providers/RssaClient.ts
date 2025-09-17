@@ -1,99 +1,90 @@
 export interface RssaClientInterface {
-	setParticipantId(participantId: string):void;
-	getParticipantId(): string | null;
+	setJwt(token: string | null): void;
+	getJwt(): string | null;
+
+	getStudyId(): string;
+
 	get<T>(path: string): Promise<T>;
-	post<T1, T2>(path: string, data: T1): Promise<T2>;
-	put<T>(path: string, data: T): Promise<void>;
+	post<TResponse, TBody>(path: string, data: TBody): Promise<TResponse>;
+	patch<TBody>(path: string, data: TBody): Promise<void>;
 }
 
 class RssaClient implements RssaClientInterface {
-	private api_url_base: string;
-	private study_id: string;
-	private participant_id: string | null = null;
+	private apiUrlBase: string;
+	private studyId: string;
+	private jwt: string | null = null;
 
 	constructor(api_url_base: string, study_id: string) {
-		this.api_url_base = api_url_base;
-		this.study_id = study_id;
+		this.apiUrlBase = api_url_base;
+		this.studyId = study_id;
+	}
+
+	public setJwt(token: string | null): void {
+		this.jwt = token;
+	}
+
+	public getJwt(): string | null {
+		return this.jwt;
+	}
+
+	public getStudyId(): string {
+		return this.studyId;
 	}
 
 	private header = {
 		'Content-Type': 'application/json',
 		'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Headers': '*',
-		'Access-Control-Allow-Methods': 'OPTIONS,PUT,POST,GET'
+		'Access-Control-Allow-Methods': 'OPTIONS,PUT,POST,GET',
 	};
 
-	/**
-	 * Sets the participant ID for the client.
-	 * @param participant_id - The ID of the participant.
-	 */
-	setParticipantId(participant_id: string | null): void {
-		this.participant_id = participant_id;
+	private async getHeaders(): Promise<Record<string, string>> {
+		const headers: Record<string, string> = {
+			'Content-Type': 'application/json',
+		};
+
+		if (this.jwt) {
+			headers['Authorization'] = `Bearer ${this.jwt}`;
+		}
+		return headers;
 	}
 
-	/**
-	 * Gets the current participant ID.
-	 * @returns The participant ID or null if not set.
-	 */
-	getParticipantId(): string | null {
-		return this.participant_id;
-	}
+	public async get<T>(path: string): Promise<T> {
+		const url = `${this.apiUrlBase}${path}`;
+		const headers = await this.getHeaders();
+		const response = await fetch(url, { method: 'GET', headers });
 
-	/**
-	 * Gets the study ID
-	 * @returns The study ID that this client was configured with.
-	 */
-	getStudyId(): string | null {
-		return this.study_id;
-	}
-
-	async get<T>(path: string): Promise<T> {
-		const url = `${this.api_url_base}${path}`;
-		const response = await fetch(url, {
-			method: 'GET',
-			headers: {
-				...this.header,
-				'X-Study-Id': `${this.study_id}`,
-				'X-Participant-Id': this.participant_id ? `${this.participant_id}` : ''
-			}
-		});
 		if (!response.ok) {
-			throw new Error(`Failed to fetch data from ${url}`);
+			throw new Error(`GET request to ${url} failed with status ${response.status}`);
 		}
 		return response.json();
 	}
-
-	async post<T1, T2>(path: string, data: T1): Promise<T2> {
-		const url = `${this.api_url_base}${path}`;
+	public async post<TResponse, TBody>(path: string, data: TBody): Promise<TResponse> {
+		const url = `${this.apiUrlBase}${path}`;
+		const headers = await this.getHeaders();
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				...this.header,
-				'X-Study-Id': `${this.study_id}`,
-				'X-Participant-Id': this.participant_id ? `${this.participant_id}` : ''
-			},
-			body: JSON.stringify(data)
+			headers,
+			body: JSON.stringify(data),
 		});
+
 		if (!response.ok) {
-			console.log(response);
-			throw new Error(`Failed to post data to ${url}`);
+			throw new Error(`POST request to ${url} failed with status ${response.status}`);
 		}
 		return response.json();
 	}
 
-	async put<T>(path: string, data: T): Promise<void> {
-		const url = `${this.api_url_base}${path}`;
+	public async patch<TBody>(path: string, data: TBody): Promise<void> {
+		const url = `${this.apiUrlBase}${path}`;
+		const headers = await this.getHeaders();
 		const response = await fetch(url, {
-			method: 'PUT',
-			headers: {
-				...this.header,
-				'X-Study-Id': `${this.study_id}`,
-				'X-Participant-Id': this.participant_id ? `${this.participant_id}` : ''
-			},
-			body: JSON.stringify(data)
+			method: 'PATCH',
+			headers,
+			body: JSON.stringify(data),
 		});
+
 		if (!response.ok) {
-			throw new Error(`Failed to update data to ${url}`);
+			throw new Error(`PATCH request to ${url} failed with status ${response.status}`);
 		}
 	}
 }
