@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext, useEffect, useMemo } from 'react';
-import { useParticipant } from './ParticipantProvider';
-import RssaClient from './RssaClient';
+import { RssaClient } from '../api';
+import { useParticipant } from '../auth';
 
 interface StudyContextType {
 	studyApi: RssaClient;
