@@ -9,7 +9,8 @@ interface StudyContextType {
 interface StudyProviderProps {
 	config: {
 		apiUrlBase: string;
-		apiKey: string;
+		apiKeyId: string;
+		apiKeySecret: string;
 		studyId: string;
 	};
 	children: ReactNode;
@@ -18,10 +19,13 @@ interface StudyProviderProps {
 const StudyContext = React.createContext<StudyContextType | undefined>(undefined);
 
 export const StudyProvider: React.FC<StudyProviderProps> = ({ config, children }) => {
-	const { apiUrlBase, apiKey, studyId } = config;
+	const { apiUrlBase, apiKeyId, apiKeySecret, studyId } = config;
 	const { jwt } = useParticipant();
 
-	const studyApi = useMemo(() => new RssaClient(apiUrlBase, apiKey, studyId), [apiUrlBase, apiKey, studyId]);
+	const studyApi = useMemo(
+		() => new RssaClient(apiUrlBase, apiKeyId, apiKeySecret, studyId),
+		[apiUrlBase, apiKeyId, apiKeySecret, studyId]
+	);
 
 	useEffect(() => {
 		studyApi.setJwt(jwt);
