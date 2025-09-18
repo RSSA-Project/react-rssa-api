@@ -1,7 +1,6 @@
 export { default as RssaClient } from './api/RssaClient';
-export { ParticipantProvider, useParticipant } from './providers/ParticipantProvider';
-export type { RssaClientInterface } from './providers/RssaClient';
-export { StudyProvider, useStudy } from './providers/StudyProvider';
+export { ParticipantProvider, useParticipant } from './auth';
+export { StudyProvider, useStudy } from './study';
 export {
 	FreeFormTextResponse,
 	FreeFormTextResponseRequest,
