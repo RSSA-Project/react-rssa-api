@@ -9,13 +9,15 @@ export interface RssaClientInterface {
 
 class RssaClient implements RssaClientInterface {
 	private apiUrlBase: string;
-	private apiKey: string;
+	private apiKeyId: string;
+	private apiKeySecret: string;
 	private studyId: string;
 	private jwt: string | null = null;
 
-	constructor(apiUrlBase: string, apiKey: string, studyId: string) {
+	constructor(apiUrlBase: string, apiKeyId: string, apiKeySecret: string, studyId: string) {
 		this.apiUrlBase = apiUrlBase;
-		this.apiKey = apiKey;
+		this.apiKeyId = apiKeyId;
+		this.apiKeySecret = apiKeySecret;
 		this.studyId = studyId;
 	}
 
@@ -41,7 +43,8 @@ class RssaClient implements RssaClientInterface {
 	private async getHeaders(): Promise<Record<string, string>> {
 		const headers: Record<string, string> = {
 			'Content-Type': 'application/json',
-			'X-Api-Key': this.apiKey,
+			'X-Api-Key-Id': this.apiKeyId,
+			'X-Api-Key-Secret': this.apiKeySecret,
 		};
 
 		if (this.jwt) {
