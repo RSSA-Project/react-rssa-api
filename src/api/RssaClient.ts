@@ -33,13 +33,6 @@ class RssaClient implements RssaClientInterface {
 		return this.studyId;
 	}
 
-	// private header = {
-	// 	'Content-Type': 'application/json',
-	// 	'Access-Control-Allow-Origin': '*',
-	// 	'Access-Control-Allow-Headers': '*',
-	// 	'Access-Control-Allow-Methods': 'OPTIONS,PUT,POST,GET',
-	// };
-
 	private async getHeaders(): Promise<Record<string, string>> {
 		const headers: Record<string, string> = {
 			'Content-Type': 'application/json',
@@ -53,45 +46,77 @@ class RssaClient implements RssaClientInterface {
 		return headers;
 	}
 
+	/**
+	 * Handles API response errors by reading the body, throwing a structured error,
+	 * and preventing stream consumption of the main response body if possible.
+	 * @param response The fetch Response object.
+	 * @param url The request URL for logging.
+	 */
+	private async handleError(response: Response, url: string): Promise<void> {
+		const errorStatus = response.status;
+		let errorBody: any = null;
+
+		try {
+			errorBody = await response.clone().json();
+		} catch (e) {
+			errorBody = await response
+				.clone()
+				.text()
+				.catch(() => 'No response body');
+		}
+
+		const error = new Error(`Request failed: ${errorStatus} ${response.statusText}`);
+		(error as any).status = errorStatus;
+		(error as any).body = errorBody;
+
+		console.error(`API Error on ${url} (${errorStatus}):`, errorBody);
+		throw error;
+	}
+
+	/**
+	 * Executes the fetch request and handles success/error parsing.
+	 * @param url The full request URL.
+	 * @param options Fetch options (method, headers, body).
+	 */
+	private async executeRequest<T>(url: string, options: RequestInit): Promise<T> {
+		const response = await fetch(url, options);
+
+		if (!response.ok) {
+			await this.handleError(response, url);
+			throw new Error('Request failed unexpectedly.');
+		}
+
+		if (response.status === 204) {
+			return null as T;
+		}
+
+		return await response.json();
+	}
+
 	public async get<T>(path: string): Promise<T> {
 		const url = `${this.apiUrlBase}${path}`;
 		const headers = await this.getHeaders();
-		const response = await fetch(url, { method: 'GET', headers });
-
-		if (!response.ok) {
-			throw new Error(`GET request to ${url} failed with status ${response.status}`);
-		}
-		return await response.json();
+		return await this.executeRequest<T>(url, { method: 'GET', headers });
 	}
+
 	public async post<TBody, TResponse>(path: string, data: TBody): Promise<TResponse> {
 		const url = `${this.apiUrlBase}${path}`;
 		const headers = await this.getHeaders();
-		const response = await fetch(url, {
+		return await this.executeRequest<TResponse>(url, {
 			method: 'POST',
 			headers,
 			body: JSON.stringify(data),
 		});
-
-		if (!response.ok) {
-			throw new Error(`POST request to ${url} failed with status ${response.status}`);
-		}
-		return await response.json();
 	}
 
 	public async patch<TBody, TResponse>(path: string, data: TBody): Promise<TResponse> {
 		const url = `${this.apiUrlBase}${path}`;
 		const headers = await this.getHeaders();
-		const response = await fetch(url, {
+		return await this.executeRequest<TResponse>(url, {
 			method: 'PATCH',
 			headers,
 			body: JSON.stringify(data),
 		});
-
-		if (!response.ok) {
-			throw new Error(`PATCH request to ${url} failed with status ${response.status}`);
-		}
-
-		return await response.json();
 	}
 }
 
