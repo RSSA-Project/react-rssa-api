@@ -3,8 +3,8 @@ export interface RssaClientInterface {
 	getJwt(): string | null;
 
 	get<T>(path: string): Promise<T>;
-	post<TResponse, TBody>(path: string, data: TBody): Promise<TResponse>;
-	patch<TBody>(path: string, data: TBody): Promise<void>;
+	post<TBody, TResponse>(path: string, data: TBody): Promise<TResponse>;
+	patch<TBody, TResponse>(path: string, data: TBody): Promise<TResponse>;
 }
 
 class RssaClient implements RssaClientInterface {
@@ -63,7 +63,7 @@ class RssaClient implements RssaClientInterface {
 		}
 		return response.json();
 	}
-	public async post<TResponse, TBody>(path: string, data: TBody): Promise<TResponse> {
+	public async post<TBody, TResponse>(path: string, data: TBody): Promise<TResponse> {
 		const url = `${this.apiUrlBase}${path}`;
 		const headers = await this.getHeaders();
 		const response = await fetch(url, {
@@ -78,7 +78,7 @@ class RssaClient implements RssaClientInterface {
 		return response.json();
 	}
 
-	public async patch<TBody>(path: string, data: TBody): Promise<void> {
+	public async patch<TBody, TResponse>(path: string, data: TBody): Promise<TResponse> {
 		const url = `${this.apiUrlBase}${path}`;
 		const headers = await this.getHeaders();
 		const response = await fetch(url, {
@@ -90,6 +90,8 @@ class RssaClient implements RssaClientInterface {
 		if (!response.ok) {
 			throw new Error(`PATCH request to ${url} failed with status ${response.status}`);
 		}
+
+		return response.json();
 	}
 }
 
