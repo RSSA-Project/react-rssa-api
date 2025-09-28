@@ -61,7 +61,7 @@ class RssaClient implements RssaClientInterface {
 		if (!response.ok) {
 			throw new Error(`GET request to ${url} failed with status ${response.status}`);
 		}
-		return response.json();
+		return await response.json();
 	}
 	public async post<TBody, TResponse>(path: string, data: TBody): Promise<TResponse> {
 		const url = `${this.apiUrlBase}${path}`;
@@ -75,7 +75,7 @@ class RssaClient implements RssaClientInterface {
 		if (!response.ok) {
 			throw new Error(`POST request to ${url} failed with status ${response.status}`);
 		}
-		return response.json();
+		return await response.json();
 	}
 
 	public async patch<TBody, TResponse>(path: string, data: TBody): Promise<TResponse> {
@@ -91,7 +91,7 @@ class RssaClient implements RssaClientInterface {
 			throw new Error(`PATCH request to ${url} failed with status ${response.status}`);
 		}
 
-		return response.json();
+		return await response.json();
 	}
 }
 
