@@ -31,13 +31,6 @@ class RssaClient implements RssaClientInterface {
 		return this.studyId;
 	}
 
-	// private header = {
-	// 	'Content-Type': 'application/json',
-	// 	'Access-Control-Allow-Origin': '*',
-	// 	'Access-Control-Allow-Headers': '*',
-	// 	'Access-Control-Allow-Methods': 'OPTIONS,PUT,POST,GET',
-	// };
-
 	private async getHeaders(): Promise<Record<string, string>> {
 		const headers: Record<string, string> = {
 			'Content-Type': 'application/json',

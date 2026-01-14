@@ -4,12 +4,12 @@ export type ConstructItem = {
 
 	order_position: number;
 	text: string;
-}
+};
 
 export type SurveyConstruct = {
 	construct_id: string;
 	construct_items: ConstructItem[];
-}
+};
 
 export type ScaleLevel = {
 	id: string;
@@ -17,7 +17,7 @@ export type ScaleLevel = {
 	value: number;
 	label: string;
 	enabled: boolean;
-}
+};
 
 export type PageContent = {
 	id: string;
@@ -34,11 +34,11 @@ export type PageContent = {
 	scale_levels: ScaleLevel[];
 
 	enabled: boolean;
-}
+};
 
 export type SurveyPage = {
 	/**
-	 * The recommended type to use for SurveyPage instances which combined the 
+	 * The recommended type to use for SurveyPage instances which combined the
 	 * the PageContent information, allowing for multiple constructs in a
 	 * single survey page. The Page interface from types/studyComponents may
 	 * also be used in many cases.
@@ -54,10 +54,10 @@ export type SurveyPage = {
 
 	title: string | null;
 	instructions: string | null;
-	
+
 	page_contents: PageContent[];
 
 	enabled: boolean;
 	date_created: string;
 	last_page: boolean;
-}
+};

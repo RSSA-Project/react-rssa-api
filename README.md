@@ -1,8 +1,9 @@
 # RSSA API integration library
 
-***Disclaimer:***
-- *This library is still under development and is subject to change.*
-- *This README is a work in progress and may not contain all the information.*
+**_Disclaimer:_**
+
+- _This library is still under development and is subject to change._
+- _This README is a work in progress and may not contain all the information._
 
 ## About
 
@@ -11,14 +12,14 @@ React application.
 
 ## Installation
 
-``` bash
+```bash
 npm install -U git+ssh://git@github.com:ShahanM/react-rssa-api.git
 
 ```
 
 or if you are using the https version of the repository
 
-``` bash
+```bash
 npm install -U git+https://github.com/ShahanM/react-rssa-api.git
 ```
 
@@ -28,11 +29,11 @@ On the top level of your application, wrap your application with the
 `StudyProvider` component. This will provide the context for the `useStudy`
 hook to work in its child components.
 
-``` typescript
+```typescript
 import { StudyProvider } from 'rssa-api';
 ```
 
-``` typescript
+```typescript
 <StudyProvider config={providerConfig}>
     <YourAppRoot />
 </StudyProvider>
@@ -40,29 +41,29 @@ import { StudyProvider } from 'rssa-api';
 
 The `StudyProvider` component takes a single prop `config`:
 
-``` typescript
+```typescript
 config: {
-    api_url_base: string;
-    study_id: string;
-};
+	api_url_base: string;
+	study_id: string;
+}
 ```
 
 Note: It is recommended to store the `api_url_base`, `study_id` and other
 configuration parameter in a `.env` file and access them using the
 `process.env`.
 
-``` typescript
+```typescript
 import { useStudy } from 'rssa-api';
 
 function YourComponent() {
-    const { studyApi } = useStudy();
+	const { studyApi } = useStudy();
 }
 ```
 
 The `useStudy()` currently only exposes the HTTP client for the study API and
 allows the `GET`, `POST`, and `PUT` methods to be called on the study API.
 
-``` typescript
+```typescript
 const { studyApi } = useStudy();
 
 // The return type of the get method is dependent on the API endpoint
@@ -85,15 +86,14 @@ const putResponse = await studyApi.put<RequestObjectType>(
 Currently, the following types are predefined in the library and can be imported
 from the library for convenience.
 
-| Meta          | Study              | Participant    | Participant Response |
-|---------------|--------------------|----------------|----------------------|
-|SurveyConstruct|StudyStep           |Participant     |SurveyResponse        |
-|ConstructItem  |CurrentStep         |NewParticipant  |SurveyItemResponse    |
-|ScaleLevel     |emptyStep           |emptyParticipant|TextItemResponse      |
-|TextConstruct  |SurveyPage          |                |GroupedTextResponse   |
-|               |PageContent         |                |Feedback              |
-|               |PrefVizRequestObject|                |Demographic           |
-
+| Meta            | Study                | Participant      | Participant Response |
+| --------------- | -------------------- | ---------------- | -------------------- |
+| SurveyConstruct | StudyStep            | Participant      | SurveyResponse       |
+| ConstructItem   | CurrentStep          | NewParticipant   | SurveyItemResponse   |
+| ScaleLevel      | emptyStep            | emptyParticipant | TextItemResponse     |
+| TextConstruct   | SurveyPage           |                  | GroupedTextResponse  |
+|                 | PageContent          |                  | Feedback             |
+|                 | PrefVizRequestObject |                  | Demographic          |
 
 ## Utility Functions
 
@@ -105,7 +105,7 @@ and to check if an object is empty.
 
 Here is an example `index.tsx` file:
 
-``` typescript
+```typescript
 import React from "react";
 import { createRoot } from 'react-dom/client';
 
