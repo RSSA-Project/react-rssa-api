@@ -12,6 +12,7 @@ export type StudyCondition = {
 	name: string;
 	description: string;
 	short_code?: string;
+	view_link_key?: string;
 	date_created: string;
 };
 
