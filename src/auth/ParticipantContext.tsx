@@ -7,18 +7,25 @@ interface ParticipantContextType {
 
 const ParticipantContext = createContext<ParticipantContextType | undefined>(undefined);
 
-export const ParticipantProvider = ({ children }: { children: ReactNode }) => {
+export const ParticipantProvider = ({
+	children,
+	storageKeyPrefix = '',
+}: {
+	children: ReactNode;
+	storageKeyPrefix?: string;
+}) => {
+	const storageKey = `${storageKeyPrefix}_participant_jwt`;
 	const [jwt, setJwt] = useState<string | null>(() => {
-		return localStorage.getItem('participant_jwt');
+		return localStorage.getItem(storageKey);
 	});
 
 	useEffect(() => {
 		if (jwt) {
-			localStorage.setItem('participant_jwt', jwt);
+			localStorage.setItem(storageKey, jwt);
 		} else {
-			localStorage.removeItem('participant_jwt');
+			localStorage.removeItem(storageKey);
 		}
-	}, [jwt]);
+	}, [jwt, storageKey]);
 
 	const value = { jwt, setJwt };
 
