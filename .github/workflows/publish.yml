@@ -2,9 +2,9 @@ name: Publish to NPM
 on:
     push:
         tags:
-            - 'v*' # Triggers only when you push a version tag like v1.0.1
+            - 'v*'
 permissions:
-    id-token: write # Required for OIDC / Trusted Publishing
+    id-token: write
     contents: read
 jobs:
     publish:
