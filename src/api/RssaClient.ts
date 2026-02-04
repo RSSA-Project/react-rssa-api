@@ -7,6 +7,18 @@ export interface RssaClientInterface {
 	patch<TBody, TResponse>(path: string, data: TBody): Promise<TResponse>;
 }
 
+export class ApiError extends Error {
+	public status: number;
+	public body: any;
+
+	constructor(message: string, status: number, body: any) {
+		super(message);
+		this.name = 'ApiError';
+		this.status = status;
+		this.body = body;
+	}
+}
+
 class RssaClient implements RssaClientInterface {
 	private apiUrlBase: string;
 	private apiKeyId: string;
@@ -65,11 +77,7 @@ class RssaClient implements RssaClientInterface {
 				.catch(() => 'No response body');
 		}
 
-		const error = new Error(`Request failed: ${errorStatus} ${response.statusText}`);
-		(error as any).status = errorStatus;
-		(error as any).body = errorBody;
-
-		console.error(`API Error on ${url} (${errorStatus}):`, errorBody);
+		const error = new ApiError(`Request failed: ${errorStatus} ${response.statusText}`, errorStatus, errorBody);
 		throw error;
 	}
 

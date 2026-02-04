@@ -22,7 +22,7 @@ export default {
 		resolve(),
 		commonjs(),
 		typescript({
-			tsconfig: './tsconfig.json',
+			tsconfig: './tsconfig.build.json',
 			declaration: true,
 			rootDir: 'src',
 		}),
