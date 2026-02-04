@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@rssa-project/api.svg)](https://www.npmjs.com/package/@rssa-project/api)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A React library for interacting with the RSSA Platform API. This library provides a typed client, hooks for accessing study configuration, and context providers for participant management.
 
 ## Installation

@@ -3,18 +3,29 @@ on:
     push:
         tags:
             - 'v*'
+
 permissions:
-    id-token: write
+    id-token: write # Required for OIDC
     contents: read
+
 jobs:
     publish:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
+
+            # Step 1: Configure registry, which creates the .npmrc file
             - uses: actions/setup-node@v4
               with:
-                  node-version: '22'
-            - run: npm install -g npm@latest
+                  node-version: '24' # Use Node 24 for best OIDC support
+                  registry-url: 'https://registry.npmjs.org'
+
+            # Step 2: KEY FIX - Delete the empty token config created by setup-node
+            # This forces npm to look for the OIDC token instead of the empty env var
+            - run: npm config delete "//registry.npmjs.org/:_authToken"
+
             - run: npm ci
             - run: npm run build
+
+            # Step 3: Publish (provenance is handled by package.json config)
             - run: npm publish
