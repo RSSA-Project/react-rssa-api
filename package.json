@@ -19,7 +19,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/RSSA-Project/react-rssa-api.git"
+		"url": "git+https://github.com/RSSA-Project/react-rssa-api.git"
 	},
 	"publishConfig": {
 		"access": "public",
