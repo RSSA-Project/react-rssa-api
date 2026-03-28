@@ -1,9 +1,9 @@
 import { render, screen, renderHook } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { StudyProvider, useStudy } from './index';
+import { StudyProvider, useStudy } from '../../index';
 import React from 'react';
-import RssaClient from '../api/RssaClient';
-import { ParticipantProvider } from '../auth';
+import RssaClient from '../../../api/RssaClient';
+import { ParticipantProvider } from '../../../auth';
 
 // Wrapper with Auth provider since StudyProvider consumes useParticipant
 const wrapper = ({ children }: { children: React.ReactNode }) => (

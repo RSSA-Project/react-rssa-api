@@ -3,7 +3,7 @@ export interface RssaClientInterface {
 	getJwt(): string | null;
 
 	get<T>(path: string): Promise<T>;
-	post<TBody, TResponse>(path: string, data: TBody): Promise<TResponse>;
+	post<TBody, TResponse>(path: string, data: TBody, options?: RequestInit): Promise<TResponse>;
 	patch<TBody, TResponse>(path: string, data: TBody): Promise<TResponse>;
 }
 
@@ -107,13 +107,14 @@ class RssaClient implements RssaClientInterface {
 		return await this.executeRequest<T>(url, { method: 'GET', headers });
 	}
 
-	public async post<TBody, TResponse>(path: string, data: TBody): Promise<TResponse> {
+	public async post<TBody, TResponse>(path: string, data: TBody, customOptions?: RequestInit): Promise<TResponse> {
 		const url = `${this.apiUrlBase}${path}`;
 		const headers = await this.getHeaders();
 		return await this.executeRequest<TResponse>(url, {
 			method: 'POST',
 			headers,
 			body: JSON.stringify(data),
+			...customOptions,
 		});
 	}
 

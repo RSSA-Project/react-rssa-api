@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { useFetchParticipant } from './useFetchParticipant';
+import { useFetchParticipant } from '../useFetchParticipant';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 

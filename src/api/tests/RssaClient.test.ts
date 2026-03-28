@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import RssaClient from './RssaClient';
+import RssaClient from '../RssaClient';
 
 describe('RssaClient', () => {
 	let client: RssaClient;

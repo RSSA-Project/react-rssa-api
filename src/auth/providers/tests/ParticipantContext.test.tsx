@@ -1,6 +1,6 @@
 import { render, screen, act, renderHook } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { ParticipantProvider, useParticipant } from './index';
+import { ParticipantProvider, useParticipant } from '../../index';
 import React from 'react';
 
 // Wrapper for testing hook

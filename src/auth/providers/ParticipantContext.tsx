@@ -1,11 +1,5 @@
-import React, { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-
-interface ParticipantContextType {
-	jwt: string | null;
-	setJwt: (jwt: string | null) => void;
-}
-
-const ParticipantContext = createContext<ParticipantContextType | undefined>(undefined);
+import React, { useEffect, useState, type ReactNode } from 'react';
+import { ParticipantContext } from './internals/ParticipantContextInternals';
 
 export const ParticipantProvider = ({
 	children,
@@ -30,12 +24,4 @@ export const ParticipantProvider = ({
 	const value = { jwt, setJwt };
 
 	return <ParticipantContext.Provider value={value}>{children}</ParticipantContext.Provider>;
-};
-
-export const useParticipant = () => {
-	const context = useContext(ParticipantContext);
-	if (context === undefined) {
-		throw new Error('useParticipant must be used within a ParticipantProvider');
-	}
-	return context;
 };

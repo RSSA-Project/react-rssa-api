@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useStudy } from '../StudyContext';
+import { useStudy } from './useStudy';
 import { StudyParticipantReadWithCondition } from '../../types/rssa-types/particpants.types';
 
 export const useFetchParticipant = () => {

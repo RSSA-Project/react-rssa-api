@@ -1,21 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { useStudy } from '../StudyContext';
 import { RETRY_DELAYS_MS } from '../../constants';
-
-export interface StudyConditionConfig {
-	[key: string]: string;
-}
-export interface StudyStepConfig {
-	step_id: string;
-	path: string;
-	component_type: string;
-}
-
-export interface StudyConfig {
-	study_id: string;
-	conditions: StudyConditionConfig;
-	steps: StudyStepConfig[];
-}
+import { useStudy } from './useStudy';
+import { StudyConfig } from '../../types/configs/studyConfig.types';
 
 export const useStudyConfig = (studyId: string) => {
 	const { studyApi } = useStudy();

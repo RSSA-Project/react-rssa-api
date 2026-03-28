@@ -1,13 +1,8 @@
 export { default as RssaClient } from './api/RssaClient';
 export { ParticipantProvider, useParticipant } from './auth';
-export {
-	StudyProvider,
-	useStudy,
-	useStudyConfig,
-	useFetchParticipant,
-	type StudyConfig,
-	type StudyStepConfig,
-} from './study';
+export { StudyProvider, useFetchParticipant, useStudy, useStudyConfig } from './study';
+export { TelemetryProvider, useSessionTraffic, useTelemetry, useTelemetryBatcher } from './telemetry';
+export type { StudyConditionConfig, StudyConfig, StudyStepConfig } from './types/configs/studyConfig.types';
 export {
 	FreeFormTextResponse,
 	FreeFormTextResponseRequest,

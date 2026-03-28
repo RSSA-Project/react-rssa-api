@@ -1,1 +1,2 @@
-export { ParticipantProvider, useParticipant } from './ParticipantContext';
+export { useParticipant } from './hooks/useParticipant';
+export { ParticipantProvider } from './providers/ParticipantContext';
