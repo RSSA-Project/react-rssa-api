@@ -1,2 +1,2 @@
-export { default as RssaClient } from './RssaClient';
+export { ApiError, default as RssaClient } from './RssaClient';
 export type { RssaClientInterface } from './RssaClient';

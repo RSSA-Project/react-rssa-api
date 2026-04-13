@@ -1,4 +1,4 @@
-export { default as RssaClient } from './api/RssaClient';
+export { ApiError, default as RssaClient } from './api/RssaClient';
 export { ParticipantProvider, useParticipant } from './auth';
 export { StudyProvider, useFetchParticipant, useStudy, useStudyConfig } from './study';
 export { TelemetryProvider, useSessionTraffic, useTelemetry, useTelemetryBatcher } from './telemetry';
