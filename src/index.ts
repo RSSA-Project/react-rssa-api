@@ -10,7 +10,7 @@ export {
 	SurveyResponse,
 } from './types/particpantResponses.types';
 export { NewParticipant, Participant } from './types/rssa-types/particpants.types';
-export { Page, Study, StudyCondition, StudyStep } from './types/rssa-types/studyComponents.types';
+export { ElicitationPolicy, Page, Study, StudyCondition, StudyStep } from './types/rssa-types/studyComponents.types';
 export {
 	CurrentStep,
 	Demographic,

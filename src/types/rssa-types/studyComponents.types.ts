@@ -1,5 +1,13 @@
 import { OrderedComponent } from '../base-types';
 
+export interface ElicitationPolicy {
+	id: string;
+	name: string;
+	elicitation_type: 'item_rating' | 'genre_selection' | 'topic_preference';
+	min_threshold: number;
+	domain: string;
+}
+
 export type Study = {
 	id: string;
 	name: string;
@@ -14,6 +22,7 @@ export type StudyCondition = {
 	short_code?: string;
 	view_link_key?: string;
 	date_created: string;
+	active_policy?: ElicitationPolicy | null;
 };
 
 export interface StudyStep extends OrderedComponent {
@@ -29,7 +38,7 @@ export interface StudyStep extends OrderedComponent {
 
 export interface Page extends OrderedComponent {
 	/**
-	 * This behaves like a type and may be used interchangeably with the
+	 * This may be used interchangeably with the
 	 * SurveyPage type from surveyComponents.
 	 */
 	study_id: string;
