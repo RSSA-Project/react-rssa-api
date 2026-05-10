@@ -10,6 +10,5 @@ export interface StudyStepConfig {
 
 export interface StudyConfig {
 	study_id: string;
-	conditions: StudyConditionConfig;
 	steps: StudyStepConfig[];
 }
